@@ -1,6 +1,6 @@
 # api-devices-cypress
 
-Automated API tests for https://api.restful-api.dev/objects using Cypress.
+Automated API tests for https://api.restful-api.dev using Cypress
 
 ## Visão Geral
 Este projeto utiliza o Cypress para realizar testes automatizados de API (E2E) em endpoints públicos. Cada arquivo de teste cobre um método HTTP ou cenário específico.
