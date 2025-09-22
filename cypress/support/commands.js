@@ -10,7 +10,22 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add("buscaDeviceEspecifico", (device_id) => {
+  cy.api({
+    method: "GET",
+    url: `/objects/${device_id}`,
+    failOnStatusCode: false,
+  }).then((response) => {return response})
+});
+
+Cypress.Commands.add("cadastraDevice", (body) => {
+    cy.api({
+      method: "POST",
+      url: "/objects",
+      failOnStatusCode: false,
+      body: body,
+    }).then((response) => {return response})
+});
 //
 //
 // -- This is a child command --

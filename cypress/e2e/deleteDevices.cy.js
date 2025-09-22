@@ -14,15 +14,8 @@ describe("Deletar dispositivo", () => {
     };
 
     //Chamada do método POST para o cadastro do dispositivo
-    cy.api({
-      method: "POST",
-      url: "/objects",
-      failOnStatusCode: false,
-      body: body,
-    }).as("postDevice");
 
-    //Confirmando se o cadastro obteve sucesso
-    cy.get("@postDevice").then((responsePost) => {
+    cy.cadastraDevice(body).then((responsePost) => {
       expect(responsePost.status).equal(200);
 
       //Chamada do método DELETE
@@ -58,7 +51,7 @@ describe("Deletar dispositivo", () => {
     });
   });
 
-  it.only("Não deve permitir deletar um dispositivo reservado", () => {
+  it("Não deve permitir deletar um dispositivo reservado", () => {
     const id_reservado = "1";
     const msgError = `${id_reservado} is a reserved id and the data object of it cannot be deleted. You can create your own new object via POST request and try to send a DELETE request with new generated object id.`;
 

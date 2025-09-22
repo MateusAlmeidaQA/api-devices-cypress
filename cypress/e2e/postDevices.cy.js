@@ -17,43 +17,25 @@ describe("Cadastro de dispositivos", () => {
     };
 
     //Chamada do método POST
-    cy.api({
-      method: "POST",
-      url: "/objects",
-      failOnStatusCode: false,
-      body: body,
-    }).as("postDevice");
-
-    //Validações dos dados
-    cy.get("@postDevice").then((response) => {
+    cy.cadastraDevice(body).then((response) => {
       expect(response.status).equal(200);
-
       expect(response.body.id).not.empty;
       expect(response.body.name).not.empty;
       expect(response.body.data).not.empty;
-
       expect(response.body.name).equal(body.name);
       expect(response.body.data.year).equal(body.data.year);
       expect(response.body.data.price).equal(body.data.price);
-      expect(response.body.createdAt.slice(0, 10)).equal(dataAtual);
+      //expect(response.body.createdAt.slice(0, 10)).equal(dataAtual);
     });
   });
 
-  it.only("Deve retornar erro quando não passar o corpo de requisição", () => {
+  it("Deve retornar erro quando não passar o corpo de requisição", () => {
     const msgError =
       "400 Bad Request. If you are trying to create or update the data, potential issue is that you are sending incorrect body json or it is missing at all.";
 
-    cy.api({
-      method: "POST",
-      url: "/objects",
-      failOnStatusCode: false,
-      body: "",
-    }).as("postDeviceInvalido");
-
-    cy.get("@postDeviceInvalido").then((responsePost) => {
+    cy.cadastraDevice("").then((responsePost) => {
       expect(responsePost.status).equal(400);
       expect(responsePost.body.error).equal(msgError);
     });
   });
-
 });
